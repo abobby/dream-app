@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\ExpressInterestNotifier;
 use DB;
 
+/**
+ * Contains all the methods for Listing and List Item
+ * Class ListingController
+ * @package App\Http\Controllers
+ */
+
 class ListingController extends Controller
 {
     public function __construct() {
@@ -24,7 +30,11 @@ class ListingController extends Controller
         ]);
     }
 
-
+    /**
+     * Item Search Form Page
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function searchItems(Request $request){
         $categories = \App\Model\ListingCategories::all();
         return view('listing.search-items', [
@@ -32,6 +42,11 @@ class ListingController extends Controller
         ]);
     }
 
+    /**
+     * Item Search Result Page
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function searchItemsResult(Request $request){
         if($request->isMethod('post')) {
             $categories = \App\Model\ListingCategories::all();
@@ -45,8 +60,9 @@ class ListingController extends Controller
     }
 
     /**
-     * Individual Listing page
+     * List Item Details page
      * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function listingDetail($id){
         $listingDetail = Search::itemDetail($id);
@@ -55,6 +71,11 @@ class ListingController extends Controller
         ]);
     }
 
+    /**
+     * Reviews list for Individual Items
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function listingReviews($id){
         $itemReviews = Search::itemReviews($id);
         return view('reviews.allreviews', [
@@ -62,6 +83,11 @@ class ListingController extends Controller
         ]);
     }
 
+    /**
+     * Interest Form submit method (Saves data in DB/Emails Seller the details
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function interestSubmit(Request $request){
         if($request->isMethod('post')){
             $validatedData = $this->validate($request,[
@@ -101,6 +127,4 @@ class ListingController extends Controller
 
         }
     }
-
-
 }

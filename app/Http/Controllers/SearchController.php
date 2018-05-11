@@ -4,12 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+/**
+ * This class contains methods for fetch values from Data for Listings, Individual Items, Reviews, Seller Details etc..
+ * Class SearchController
+ * @package App\Http\Controllers
+ */
 class SearchController extends Controller
 {
     public function __construct() {
 
     }
 
+    /**
+     * Returns list of all the Items
+     * @return array/bool
+     */
     public static function allListings() {
         $all = \App\Model\Listings::where('status', 1)->get();
         foreach($all AS $item){
@@ -31,6 +40,14 @@ class SearchController extends Controller
         }
     }
 
+    /**
+     * List of Items matching the Search Criteria
+     * @param $type
+     * @param null $keyword
+     * @param null $min
+     * @param null $max
+     * @return array/bool
+     */
     public static function keywordListing($type, $keyword = null, $min = null, $max = null){
         $query = \App\Model\Listings::query()
                 ->when($type, function ($query) use ($type) {
@@ -49,12 +66,7 @@ class SearchController extends Controller
                         ->orWhere( 'lmake', 'LIKE', "%{$keyword}%")
                         ->orWhere( 'lmodel', 'LIKE', "%{$keyword}%")
                         ->orwhereRaw('json_contains(meta_data, \'["' . $keyword . '"]\')');
-                        //->orwhereRaw('JSON_CONTAINS(meta_data->"$.color", \'["'.$keyword.'%"]\')');
-                });
-
-                /*return $query->orWhere('title', 'LIKE', "%{$keyword}%")
-                ->orWhere( 'description', 'LIKE', "%{$keyword}%")
-                ->orwhereRaw('json_contains(search_field, \'["' . $keyword . '"]\')');*/
+                    });
                 });
 
         $result = $query->orderBy('created_at', 'desc')->get();
@@ -68,6 +80,11 @@ class SearchController extends Controller
         }
     }
 
+    /**
+     * Returns Details of Selected Item from Listing
+     * @param $itemid
+     * @return bool/array
+     */
     public static function itemDetail($itemid) {
         $selects = ['id', 'name', 'email', 'phone', 'type'];
         $item = \App\Model\Listings::find($itemid);
@@ -83,6 +100,11 @@ class SearchController extends Controller
         }
     }
 
+    /**
+     * Return reviews of a particular Item
+     * @param $itemid
+     * @return bool/array
+     */
     public static function itemReviews($itemid) {
         $itemreviews = \App\Model\Reviews::where('listing_id', $itemid)->get();
         if(count($itemreviews) > 0){
@@ -92,6 +114,11 @@ class SearchController extends Controller
         }
     }
 
+    /**
+     * Returns Sellers Details
+     * @param $sellerid
+     * @return bool/array
+     */
     public static function sellerDetails($sellerid) {
         $seller = \App\Model\Sellers::find($sellerid);
         if(count($seller) > 0){
