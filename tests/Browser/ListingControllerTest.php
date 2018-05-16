@@ -41,8 +41,7 @@ class ListingControllerTest extends DuskTestCase
      */
     public function test_search_no_item_result_with_keyword(){
         $this->browse(function (Browser $browser) {
-            $browser->visit('/')
-                    ->clickLink("Search Items")
+            $browser->visit('/item-search')
                     ->assertPathIs('/item-search')
                     ->select(4, 'type')
                     ->click('button[type="submit"]')
