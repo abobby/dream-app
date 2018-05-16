@@ -26,7 +26,7 @@ class ListingControllerTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/item-search')
                     ->assertPathIs('/item-search')
-                    ->select(1, 'type')
+                    ->select('type', 1)
                     ->value('#keyword', 'truck')
                     ->value('#minprice', '10000')
                     ->value('#maxprice', '20000')
@@ -43,7 +43,7 @@ class ListingControllerTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/item-search')
                     ->assertPathIs('/item-search')
-                    ->select(4, 'type')
+                    ->select('type', 4)
                     ->click('button[type="submit"]')
                     ->assertPathIs('/item-search-result')
                     ->assertSee("Oh! sorry no items to display.");
