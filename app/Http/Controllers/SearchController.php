@@ -88,13 +88,17 @@ class SearchController extends Controller
     public static function itemDetail($itemid) {
         $selects = ['id', 'name', 'email', 'phone', 'type'];
         $item = \App\Model\Listings::find($itemid);
-        $item->seller = \App\Model\Listings::find($itemid)->seller->select($selects)->first();
-        $item->category = \App\Model\Listings::find($itemid)->category;
-        $item->images = \App\Model\Listings::find($itemid)->images;
-        $item->reviews = \App\Model\Listings::find($itemid)->reviews;
-
         if(count($item) > 0){
-            return $item;
+            $item->seller = \App\Model\Listings::find($itemid)->seller->select($selects)->first();
+            $item->category = \App\Model\Listings::find($itemid)->category;
+            $item->images = \App\Model\Listings::find($itemid)->images;
+            $item->reviews = \App\Model\Listings::find($itemid)->reviews;
+
+            if(count($item) > 0){
+                return $item;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
