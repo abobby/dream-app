@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">
-                        <select class="form-control" name="type" required>
+                        <select id="type" class="form-control" name="type" required>
                             <option value="">--Select Type</option>
                             @if($types)
                                 @foreach($types AS $type)
@@ -18,17 +18,17 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="keyword" placeholder="Keyword for search">
+                        <input id="keyword" type="text" class="form-control" name="keyword" placeholder="Keyword for search">
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="minprice" placeholder="Min Price">
+                        <input id="minprice" type="text" class="form-control" name="minprice" placeholder="Min Price">
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="maxprice" placeholder="Max Price">
+                        <input id="maxprice" type="text" class="form-control" name="maxprice" placeholder="Max Price">
                     </div>
                 </div>
                 <div class="col-md-1">
