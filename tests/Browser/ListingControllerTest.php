@@ -15,7 +15,7 @@ class ListingControllerTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
                     ->clickLink("Search Items")
-                    ->assertUrlIs('/item-search');
+                    ->assertPathIs('/item-search');
         });
     }
     
@@ -24,8 +24,7 @@ class ListingControllerTest extends DuskTestCase
      */
     public function test_search_item_result_with_keyword(){
         $this->browse(function (Browser $browser) {
-            $browser->visit('/')
-                    ->clickLink("Search Items")
+            $browser->visit('/item-search')
                     ->assertPathIs('/item-search')
                     ->select(1, 'type')
                     ->value('#keyword', 'truck')
