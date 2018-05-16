@@ -20,30 +20,18 @@ class ListingControllerTest extends TestCase
     }
     
     /** 
-     * Test if all items are displayed in home page 
+     * Test if all items are displayed or no items message is displayed in home page 
      * @test 
      */
-    public function test_all_item_is_displayed()
-    {
-        $response = $this->get('/');
-        $response->assertSeeText("Details");
-        $response->assertDontSeeText("Sorry not items have been listed yet. Please check back later.");
-    }
-    
-    /** 
-     * Test if no items are listed yet
-     * @test 
-     */
-    public function test_if_no_item_is_listed()
+    public function test_all_item_listed_or_no_listed_items_message_is_displayed()
     {
         $response = $this->get('/');
         if($response->assertSeeText("Details")){
-            //
+            $response->assertDontSeeText("Sorry not items have been listed yet. Please check back later.");
         } else {
             $response->assertSeeText("Sorry not items have been listed yet. Please check back later.");
         }
     }
-    
     
     /** 
      * Test individual items details page is loaded
